@@ -6,6 +6,9 @@ public class Main {
     public static void main(String[] args) {
         try {
             GestionDesVe gestionVe = new GestionDesVe();
+            boolean continuer = true;
+            boolean flag = false;
+            while (continuer) {
             System.out.println("""
                     0-Quitter
                     1-Afficher la liste de voitures
@@ -16,11 +19,11 @@ public class Main {
                     6-Trier la liste de voitures par ordre croissant du modele 
                     7-Trier la liste de voitures par ordre décroissant du modele
                     8-Ajouter une voiture 
-                    9-Supprimer uen voiture"""); //TODO 8 et 9
-            boolean flag = false;
+                    9-Supprimer uen voiture""");
             int choix = In.readInteger();
-            boolean continuer = true;
-            while (continuer) {
+
+
+
                 switch (choix) {
                     case 0:
                         continuer = false;
@@ -31,40 +34,61 @@ public class Main {
                         break;
                     case 2:
                         gestionVe.trierCroissantMarque();
-                        flag = true;
                         break;
                     case 3:
                         gestionVe.trierDecroissantMarque();
-                        flag = true;
                         break;
                     case 4:
                         gestionVe.trierCroissantVente();
-                        flag = true;
                         break;
                     case 5:
                         gestionVe.trierDecroissantVente();
-                        flag = true;
                         break;
                     case 6:
                         gestionVe.trierCroissantModele();
-                        flag = true;
                         break;
                     case 7:
                         gestionVe.trierDecroissantModele();
-                        flag = true;
+                        break;
+                    case 8 :
+                        System.out.println("Saisir le modèle de la voiture :");
+                        String modele = In.readString();
+                        System.out.println("Saisir la marque de la voiture :");
+                        String marque = In.readString();
+                        System.out.println("Saisir le nombre de vente de cette voiture :");
+                        int vente = In.readInteger();
+                        gestionVe.ajouterVoiture(modele, marque, vente);
+                        break;
+                    case 9 :
+                        int index = 1;
+                        for (Voitures v : gestionVe.getVoiture()) {
+                            System.out.println(index + " - "
+                                    + v.getId() + " "
+                                    + v.getMarque() + " "
+                                    + v.getModele() + " "
+                                    + v.getNb_vente());
+                            index++;
+                        }
+                        System.out.println("Saisir le numéro de la voiture que vous voulez supprimée :");
+                        int numero = In.readInteger();
+                        gestionVe.supprimerVoiture(numero);
                         break;
                 }
             }
-            if (flag) {
-                for (int i = 0; i < gestionVe.getVoiture().size(); i++) {
-                    System.out.println(
-                            +gestionVe.getVoiture().get(i).getId() + " "
-                                    + gestionVe.getVoiture().get(i).getMarque() + " "
-                                    + gestionVe.getVoiture().get(i).getModele() + " "
-                                    + gestionVe.getVoiture().get(i).getNb_vente());
-                }
 
+            if(flag) {
+                int index = 1;
+                for (Voitures v : gestionVe.getVoiture()) {
+                    System.out.println(index + " - "
+                            + v.getId() + " "
+                            + v.getMarque() + " "
+                            + v.getModele() + " "
+                            + v.getNb_vente());
+                    index++;
+                }
             }
+
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
