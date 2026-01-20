@@ -19,10 +19,8 @@ public class Main {
                     6-Trier la liste de voitures par ordre croissant du modele 
                     7-Trier la liste de voitures par ordre décroissant du modele
                     8-Ajouter une voiture 
-                    9-Supprimer uen voiture""");
+                    9-Supprimer une voiture""");
             int choix = In.readInteger();
-
-
 
                 switch (choix) {
                     case 0:
@@ -30,25 +28,30 @@ public class Main {
                         break;
                     case 1:
                         gestionVe.afficherVoitures();
-                        flag = true;
                         break;
                     case 2:
                         gestionVe.trierCroissantMarque();
+                        flag = true;
                         break;
                     case 3:
                         gestionVe.trierDecroissantMarque();
+                        flag = true;
                         break;
                     case 4:
                         gestionVe.trierCroissantVente();
+                        flag = true;
                         break;
                     case 5:
                         gestionVe.trierDecroissantVente();
+                        flag = true;
                         break;
                     case 6:
                         gestionVe.trierCroissantModele();
+                        flag = true;
                         break;
                     case 7:
                         gestionVe.trierDecroissantModele();
+                        flag = true;
                         break;
                     case 8 :
                         System.out.println("Saisir le modèle de la voiture :");
@@ -62,11 +65,7 @@ public class Main {
                     case 9 :
                         int index = 1;
                         for (Voitures v : gestionVe.getVoiture()) {
-                            System.out.println(index + " - "
-                                    + v.getId() + " "
-                                    + v.getMarque() + " "
-                                    + v.getModele() + " "
-                                    + v.getNb_vente());
+                            System.out.println(v);
                             index++;
                         }
                         System.out.println("Saisir le numéro de la voiture que vous voulez supprimée :");
@@ -74,17 +73,17 @@ public class Main {
                         gestionVe.supprimerVoiture(numero);
                         break;
                 }
-            }
 
-            if(flag) {
-                int index = 1;
-                for (Voitures v : gestionVe.getVoiture()) {
-                    System.out.println(index + " - "
-                            + v.getId() + " "
-                            + v.getMarque() + " "
-                            + v.getModele() + " "
-                            + v.getNb_vente());
-                    index++;
+                if(flag) {
+                    int index = 1;
+                    for (Voitures v : gestionVe.getVoiture()) {
+                        System.out.println(index + " - "
+                                + v.getId() + " "
+                                + v.getMarque() + " "
+                                + v.getModele() + " "
+                                + v.getNb_vente());
+                        index++;
+                    }
                 }
             }
 

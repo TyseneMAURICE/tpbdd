@@ -44,4 +44,9 @@ public class Voitures {
     public void setNb_vente(int nb_vente) {
         this.nb_vente = nb_vente;
     }
+
+    @Override
+    public String toString() {
+        return getId() + " " + getMarque() + " " + getModele() + " " + getNb_vente();
+    }
 }

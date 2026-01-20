@@ -2,7 +2,6 @@ package fr.btsciel.clavier;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class GestionDesVe {
     private ArrayList<Voitures> voiture = new ArrayList();
@@ -15,18 +14,20 @@ public class GestionDesVe {
     }
 
 
+
     public void setVoiture(ArrayList<Voitures> voiture) {
         this.voiture = voiture;
     }
 
     public void afficherVoitures() throws SQLException {
-        voiture.clear();
         PreparedStatement pst = connexion.prepareStatement("select * from voitures");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"),rs.getString("marque"),rs.getString("modele"),rs.getInt("nb_vente")));
             voiture.add(v);
         }
+        voiture.forEach(System.out::println);
+        System.out.println("----------------------------------------");
     }
 
     public ArrayList<Voitures> getVoiture() throws SQLException, ClassNotFoundException {
@@ -35,7 +36,7 @@ public class GestionDesVe {
 
     public void trierCroissantMarque() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by marque asc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by marque asc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"),rs.getString("marque"),rs.getString("modele"),rs.getInt("nb_vente")));
@@ -46,7 +47,7 @@ public class GestionDesVe {
 
     public void trierDecroissantMarque() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by marque desc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by marque desc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"),rs.getString("marque"),rs.getString("modele"),rs.getInt("nb_vente")));
@@ -56,7 +57,7 @@ public class GestionDesVe {
 
     public void trierCroissantVente() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by nb_vente asc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by nb_vente asc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"),rs.getString("marque"),rs.getString("modele"),rs.getInt("nb_vente")));
@@ -66,7 +67,7 @@ public class GestionDesVe {
 
     public void trierDecroissantVente() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by nb_vente desc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by nb_vente desc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"), rs.getString("marque"), rs.getString("modele"), rs.getInt("nb_vente")));
@@ -76,7 +77,7 @@ public class GestionDesVe {
 
     public void trierCroissantModele() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by modele asc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by modele asc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"), rs.getString("marque"), rs.getString("modele"), rs.getInt("nb_vente")));
@@ -86,7 +87,7 @@ public class GestionDesVe {
 
     public void trierDecroissantModele() throws SQLException {
         voiture.clear();
-        PreparedStatement pst = connexion.prepareStatement("select * from id order by nb_vente desc");
+        PreparedStatement pst = connexion.prepareStatement("select * from voitures order by nb_vente desc");
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Voitures v = (new Voitures(rs.getInt("id"), rs.getString("marque"), rs.getString("modele"), rs.getInt("nb_vente")));
@@ -96,7 +97,7 @@ public class GestionDesVe {
 
     public void ajouterVoiture(String marque, String modele, int nbVente) throws SQLException {
         voiture.clear();
-        PreparedStatement ps = connexion.prepareStatement("INSERT INTO voitures (id, marque, modele, ventes) VALUES (NULL, ?, ?, ?)");
+        PreparedStatement ps = connexion.prepareStatement("INSERT INTO voitures (id, marque, modele, nb_vente) VALUES (NULL, ?, ?, ?)");
 
         ps.setString(1, marque);
         ps.setString(2, modele);
